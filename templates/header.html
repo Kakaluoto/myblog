@@ -1,1 +1,24 @@
-<h1 style="font-family: 微软雅黑">我的博客</h1>
+{% load static %}
+<style>
+    video{
+        position: fixed;
+        right:0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -9999;
+    /*灰色调*/
+    /*-webkit-filter:grayscale(100%)*/
+
+</style>
+<div class="well" style="background: rgba(0,0,0,0);border-color: rgba(0,0,0,0)" >
+<!--    <img src="{% static 'images/logo1.gif' %}" style="vertical-align:middle;" width="100" height="100">-->
+    <div class="videocontainer">
+        <video id="v1" autoplay muted loop style="width: 100%">
+            <source  src="{% static 'videos/top.webm' %}">
+        </video>
+    </div>
+    <h1 style="color: #dddddd">我的博客</h1>
+</div>

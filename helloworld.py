@@ -1,3 +1,3 @@
 print('hello world')
 print('这次测试git push是否还需要输入账号密码')
-print('这次测试自动push的shell脚本.')
+print('这次测试自动push的shell脚本')

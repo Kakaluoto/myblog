@@ -9,9 +9,11 @@
     <div class="hide-button" style="display: none;">隐藏</div>
 </div>
 <script src="{%static 'live2d/js/jquery-2.2.0.min.js'%}"></script>
+<!--<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>-->
 <script type="text/javascript">
-    var message_Path = "{%static 'live2d/message.json' %}";
-    var home_Path = '192.168.88.128:8000'               //此处可以修改为你的域名，必须带斜杠
+    var message_Path = "{%static 'live2d/' %}"
+    //var message_Path = 'https://6dduu6.github.io/live2d/'
+    var home_Path = '192.168.88.128:8000/'               //此处可以修改为你的域名，必须带斜杠
 </script>
 <script type="text/javascript" src="{%static 'live2d/js/live2d.js'%}"></script>
 <script type="text/javascript" src="{%static 'live2d/js/message.js'%}"></script>

@@ -13,7 +13,7 @@
     <tr><td>产品</td><td>售价</td><td>库存量</td></tr>
     {% for p in products %}
     <tr>
-        <td>{{p.name}}</td>
+        <td><a href="/list/{{p.sku}}/">{{p.name}}</a></td>
         <td>{{p.price}}</td>
         <td>{{p.restp}}</td>
     </tr>

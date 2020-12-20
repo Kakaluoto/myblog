@@ -1,34 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'index.html' %}
 {% load markdown_deux_tags %}
 {% block title %}{{ post.title }}文章内容{% endblock %}
 {% block headmessage %}
 <h3 style="font-family: 微软雅黑;">{{ post.title }}</h3>
-<a style="font-family: 微软雅黑;" href="/">回首页</a>
+<a style="font-family: 微软雅黑;" href="/">回首页  </a>
+<a style="font-family: 微软雅黑;" href="/article">返回上一级</a>
+
+
 {% endblock %}
 {% block content %}
 <p style="font-family: Inconsolata;font-size: 12pt;letter-spacing: 2pt">
     <i style="font-size: medium">{{post.body|markdown|linebreaksbr}}</i>
 </p>
 {% endblock %}
-<!--<!DOCTYPE html>-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>-->
-<!--        欢迎光临我的博客-->
-<!--    </title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>{{post.title}}</h1>-->
-<!--<hr>-->
-<!--    <p style="font-family: 微软雅黑;font-size: 12pt;letter-spacing: 2pt">-->
-<!--    {{post.body}}-->
-<!--    </p>-->
-<!--<hr>-->
-<!--<h3>-->
-<!--    <a href="/">回首页</a>-->
-<!--</h3>-->
-<!--</body>-->
-<!--</html>-->
 
-<!-- post.html -->
 

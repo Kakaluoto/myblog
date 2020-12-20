@@ -8,11 +8,13 @@ import random
 
 
 # Create your views here.
-def homepage(request):
+def showArticle(request):
     posts = Post.objects.all()
     now = datetime.now()
     return render(request, 'index.html', locals())
 
+def homepage(request):
+    return render(request, 'menu.html')
 
 def showpost(request, slug):
     try:

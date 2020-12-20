@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='uft-8'>
+    <title>
+        货物列表
+    </title>
+</head>
+<body>
+<h2>当前存货列表</h2>
+<hr>
+<table width=400 border=1 bgcolor='#ccffcc'>
+    <tr><td>产品</td><td>售价</td><td>库存量</td></tr>
+    {% for p in products %}
+    <tr>
+        <td>{{p.name}}</td>
+        <td>{{p.price}}</td>
+        <td>{{p.restp}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

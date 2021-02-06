@@ -15,14 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from mainsite.views import showpost, homepage, about, listing, disp_detail, showArticle
+from mainsite.views import showpost, homepage, about, listing, disp_detail, showArticle, verifier, mylogin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homepage),
-    path('article/', showArticle),
+    path('article/', showArticle, name='article'),
+    path('article/<int:pid>/<str:del_pass>',showArticle),
     path('post/<slug:slug>', showpost),
     path('about/', about),
     path('list/', listing),
+    path('login/<str:id>', mylogin),
+    path('verify/', verifier, name='verifier'),  # ‰÷»æµ«¬ºΩÁ√Ê
     path('list/<str:sku>/', disp_detail),
 ]

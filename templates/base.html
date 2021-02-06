@@ -17,6 +17,7 @@
 
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+{% block body %}
 <body>
     <div class="container-fluid">
         {% include 'header.html' %}
@@ -24,18 +25,19 @@
             <div class="col-sm-4 col-md-4" style="width: 180px">
                 {% block menu %} {% endblock %}
             </div>
-            <div class="col-sm-4 col-md-4">
+            <div class="col-sm-4 col-md-4" style="margin: fill">
                 {% block articleList %} {% endblock %}
             </div>
-            <div class="col-sm-4 col-md-4">
-                <div class="panel panel-default" style="border-color: rgba(0,0,0,0);background-color: rgba(0,0,0,0)">
-                    <div class="panel-body">
-                        <h1 style="color: #dddddd">(✪ω✪)</h1>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="col-sm-4 col-md-4">-->
+<!--                <div class="panel panel-default" style="border-color: rgba(0,0,0,0);background-color: rgba(0,0,0,0)">-->
+<!--                    <div class="panel-body">-->
+<!--                        <h1 style="color: #dddddd">(✪ω✪)</h1>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
-    {% include 'live2d.html' %}
 </body>
+{% endblock %}
+{% include 'live2d.html' %}
 </html>

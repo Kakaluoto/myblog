@@ -1,40 +1,68 @@
 {% extends 'base.html' %}
-{% block title %}欢迎光临我的博客{% endblock %}
-{% block articleList %}
+{% block title %}kakaluoto's site{% endblock %}
+{% block body %}
+{% include 'header.html' %}
 <div class="panel panel-default">
     <div class="panel-heading">
-        {% block headmessage %}
-        <h3 style="font-family: 楷体">本站文章列表</h3>
-        <a style="font-family: 微软雅黑;" href="/">回首页  </a>
-        {% endblock %}
+        <h4 style="font-family: 楷体">本站文章列表</h4>
+        <a style="font-family: 微软雅黑;" href="/">回首页 </a>
     </div>
     <div class="panel-body">
-        {% block content %}
-        {% for post in posts %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <p style="font-family: 微软雅黑;font-size: 16pt;font-weight: bold;">
-                    <a href="/post/{{post.slug}}">{{post.title}}</a>
-                </p>
+        <div class="container">
+            {% if message %}
+            <div class="alert alert-warning">{{ message }}</div>
+            {% endif %}
+            <form name="my form" action="{% url 'article' %}" method="GET">
+                现在的心情:<br/><br/>
+                {% for m in moods %}
+                <input type="radio" name="mood" value="{{m.status}}">{{m.status}}
+                {% endfor %}
+                <br/><br/>
+                心情留言板:<br/><br/>
+                <textarea name="user_post" rows=3 cols=70></textarea><br/><br/>
+                <label for="user_id">你的昵称:</label>
+                <input id="user_id" type="text" name="user_id">
+                <label for="user_pass">张贴/删除密码</label>
+                <input id="user_pass" type="password" name="user_pass"><br/><br/>
+                <input type="submit" value="张贴">
+                <input type="reset" value="清除重填">
+            </form>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" align=center>
+                            <h3>~~欢迎提交你的评论~~</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="panel-body" style="background-color: #d6d6d6">
-                <p>
-                    {{post.body|truncatechars:40}}
-                </p>
-            </div>
-            <div class="panel-footer" style="background-color: #dddddd">
-                <p>
-                    发布时间: {{post.pub_date|date:"Y M d, h:m:s"}}
-                </p>
+            <div class="row">
+                {% for p in posts %}
+                <div class="col-sm-12 col-md-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">【{{p.nickname}}】觉得{{p.mood}}</div>
+                        <div class="panel-body">{{p.message | linebreaks}}</div>
+                        <div class="panel-footer" align="right">
+                            <i><small>{{p.pub_time}}</small></i>
+                            <span class="glyphicon glyphicon-trash" onclick="go_delete({{p.id}})"></span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
         </div>
-        <br>
-        {% endfor %}
-        {% endblock %}
     </div>
-    <div class="panel-footer">
-        {% include 'footer.html' %}
-    </div>
+    <script>
+        function go_delete(id) {
+            console.log(id);
+            var del_pass = prompt("请输入您用于删帖的密码","");
+            console.log(del_pass)
+            if (del_pass != "") {
+                var usr = '/article/' + id + '/' + del_pass;
+                window.location = usr;
+            }
+        }
+    </script>
 </div>
 {% endblock %}
 

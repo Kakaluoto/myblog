@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}请登录{% endblock %}
+{% block body %}
+{% include 'header.html' %}
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        <a style="font-family: 微软雅黑;" href="/">回首页 </a>
+    </div>
+    <div class="panel-body">
+        <div class="container">
+            登陆页面
+            {% if user.is_authenticated %}
+                已登录
+                {% if id == 'table' %}
+                    <hr>
+                    <a href='/list/'>点击查看数据表格</a>
+                    <hr>
+                {% else %}
+                    <hr>
+                    <a href='/article/'>点击查看本站文章</a>
+                    <hr>
+                {% endif %}
+            {% else %}
+                <hr>
+                未登录
+                <hr>
+                <form name="my form" action="{% url 'verifier' %}" method="POST">
+                    {% csrf_token %}
+                    <label for="user_id">Your ID:</label>
+                    <input id="user_id" type="text" name="user_id">
+                    <label for="user_pass">Your Password:</label>
+                    <input id="user_pass" type="password" name="user_pass">
+                    <input type="submit" value="登录">
+                    <input type="reset" value="清除重填">
+                    <div style="display: none;">
+                        <input id="next" type="text" name="next_page" value="{{ id }}" />
+                    </div>
+                </form>
+            {% endif %}
+
+        </div>
+    </div>
+    <div class="panel-footer">
+        {% include 'footer.html' %}
+    </div>
+</div>
+{% endblock %}
+

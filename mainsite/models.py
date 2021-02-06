@@ -1,24 +1,23 @@
+# -*- coding: UTF-8 -*-
 from django.db import models
 from django.utils import timezone
 
 
 # Create your models here.
 class Post(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.CharField(max_length=200)
-    body = models.TextField()
-    pub_date = models.DateTimeField(default=timezone.now)
-
-    class Meta:
-        ordering = ('-pub_date',)
+    mood = models.ForeignKey('Mood', on_delete=models.CASCADE)  # 使用外键链接过来
+    nickname = models.CharField(max_length=10, default='不愿透露身份的人')
+    message = models.TextField(null=False)
+    del_pass = models.CharField(max_length=10)
+    pub_time = models.DateTimeField(auto_now=True)
+    enabled = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title
+        return self.message
 
 
 class NewTable(models.Model):
     bigint_f = models.BigIntegerField()
-    bool_f = models.BooleanField()
     date_f = models.DateField(auto_now=True)
     char_f = models.CharField(max_length=20, unique=True)
     datetime_f = models.DateTimeField(auto_now_add=True)
@@ -39,5 +38,13 @@ class Product(models.Model):
     price = models.PositiveIntegerField()
     size = models.CharField(max_length=1, choices=SIZES)
     restp = models.IntegerField(default=0)
+
     def __str__(self):
         return self.name
+
+
+class Mood(models.Model):
+    status = models.CharField(max_length=10, null=False)
+
+    def __str__(self):
+        return self.status

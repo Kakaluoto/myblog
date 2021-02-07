@@ -14,10 +14,10 @@ def showArticle(request, pid=None, del_pass=None):
     moods = Mood.objects.all()
     now = datetime.now()
     try:
-        user_id = request.GET['user_id']
-        user_pass = request.GET['user_pass']
-        user_post = request.GET['user_post']
-        user_mood = request.GET['mood']
+        user_id = request.POST['user_id']
+        user_pass = request.POST['user_pass']
+        user_post = request.POST['user_post']
+        user_mood = request.POST['mood']
     except:
         user_id = None
         message = '如果要张贴信息，那么每个字段都要填写...'

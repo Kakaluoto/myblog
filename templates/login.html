@@ -12,6 +12,7 @@
             登陆页面
             {% if user.is_authenticated %}
                 已登录
+                <meta class="login_status" name="login_status" content="YES" />
                 {% if id == 'table' %}
                     <hr>
                     <a href='/list/'>点击查看数据表格</a>
@@ -24,9 +25,10 @@
             {% else %}
                 <hr>
                 未登录
+                <meta  class="login_status" name="login_status" content="NO" />
                 <hr>
                 <form name="my form" action="{% url 'verifier' %}" method="POST">
-                    {% csrf_token %}
+<!--                    {% csrf_token %}-->
                     <label for="user_id">Your ID:</label>
                     <input id="user_id" type="text" name="user_id">
                     <label for="user_pass">Your Password:</label>

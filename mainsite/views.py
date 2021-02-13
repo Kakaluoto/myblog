@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login
 from .models import Post, Product, Mood
@@ -10,35 +10,39 @@ import random
 
 # Create your views here.
 def showArticle(request, pid=None, del_pass=None):
-    posts = Post.objects.filter(enabled=True).order_by('-pub_time')[:30]
-    moods = Mood.objects.all()
-    now = datetime.now()
-    try:
-        user_id = request.POST['user_id']
-        user_pass = request.POST['user_pass']
-        user_post = request.POST['user_post']
-        user_mood = request.POST['mood']
-    except:
-        user_id = None
-        message = '如果要张贴信息，那么每个字段都要填写...'
-
-    if del_pass and pid:
+    if request.user.is_authenticated:
+        posts = Post.objects.filter(enabled=True).order_by('-pub_time')[:30]
+        moods = Mood.objects.all()
+        now = datetime.now()
         try:
-            post = Post.objects.get(id=pid)
+            user_id = request.POST['user_id']
+            user_pass = request.POST['user_pass']
+            user_post = request.POST['user_post']
+            user_mood = request.POST['mood']
         except:
-            post = None
-        if post:
-            if post.del_pass == del_pass:
-                post.delete()
-                message = "数据删除成功"
-            else:
-                message = "密码错误"
-    elif user_id != None:
-        mood = Mood.objects.get(status=user_mood)
-        post = Post.objects.create(mood=mood, nickname=user_id, del_pass=user_pass, message=user_post)
-        post.save()
-        message = '成功保存！请记得你的编辑密码【{}】!，信息需经审查后才会显示。'.format(user_pass)
-    return render(request, 'index.html', locals())
+            user_id = None
+            message = '如果要张贴信息，那么每个字段都要填写...'
+
+        if del_pass and pid:
+            try:
+                post = Post.objects.get(id=pid)
+            except:
+                post = None
+            if post:
+                if post.del_pass == del_pass:
+                    post.delete()
+                    message = "数据删除成功"
+                else:
+                    message = "密码错误"
+        elif user_id != None:
+            mood = Mood.objects.get(status=user_mood)
+            post = Post.objects.create(mood=mood, nickname=user_id, del_pass=user_pass, message=user_post)
+            post.save()
+            message = '成功保存！请记得你的编辑密码【{}】!，信息需经审查后才会显示。'.format(user_pass)
+            poststatus = 'YES'
+        return render(request, 'index.html', locals())
+    else:
+        return render(request, 'error.html', {'message': '用户名或密码不正确'})
 
 
 def homepage(request):
@@ -85,6 +89,7 @@ def verifier(request):
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
+        print(request.user.is_authenticated)
         return redirect('/login/' + nextpage)
     else:
         return render(request, 'error.html', {'message': '用户名或密码不正确'})

@@ -10,7 +10,8 @@
     <div class="panel-body">
         <div class="container">
             {% if message %}
-            <div class="alert alert-warning">{{ message }}</div>
+            <div class="alert alert-warning" >{{ message }}</div>
+            <meta  class="post_status" name="post_status" content="{{poststatus}}" />
             {% endif %}
             <form name="my form" action="{% url 'article' %}" method="POST">
                 {% csrf_token %}
